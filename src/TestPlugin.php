@@ -5,7 +5,10 @@ class TestPlugin {
 
     private $url = 'https://demozab.com/coinwerx/testapi/';
 
-    public function __construct() {
+    private $coin;
+
+    public function __construct($coin = '') {
+        $this->coin = $coin;
     }
     
     public function get_balance() {
