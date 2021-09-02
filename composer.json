@@ -18,7 +18,7 @@
                 "Opensource\\TestPlugin\\TestPluginServiceProvider"
             ],
             "aliases": {
-                "TestPluginData": "Opensource\\TestPlugin\\TestPlugin"
+                "TestPluginData": "Opensource\\TestPlugin"
             }
         }
     },
