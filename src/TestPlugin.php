@@ -4,6 +4,9 @@ namespace TestPlugin;
 class TestPlugin {
 
     private $url = 'https://demozab.com/coinwerx/testapi/';
+
+    public function __construct() {
+    }
     
     public function get_balance() {
         $url = $this->url.'/test.php';
