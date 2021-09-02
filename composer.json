@@ -16,10 +16,7 @@
         "laravel": {
             "providers": [
                 "Opensource\\TestPlugin\\TestPluginServiceProvider"
-            ],
-            "aliases": {
-                "TestPluginData": "Opensource\\TestPlugin"
-            }
+            ]
         }
     },
     "minimum-stability": "dev",
