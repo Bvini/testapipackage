@@ -23,9 +23,9 @@ If this file not exist then create and set configuration like this. How to get A
 
 return [
 
-    'api_key' => '',
+    'public_key' => '',
 
-    'api_secret' => ''
+    'private_key' => ''
 ];
 
 Usage of library :
