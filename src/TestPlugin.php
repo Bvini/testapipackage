@@ -1,5 +1,6 @@
 <?php
-namespace TestPlugin;
+
+namespace Opensource\TestPlugin;
 
 class TestPlugin {
 
