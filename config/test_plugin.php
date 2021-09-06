@@ -2,7 +2,7 @@
 
 return [
 
-    'public_key' => 'test',
+    'public_key' => '',
     
-    'private_key' => 'testprivate'
+    'private_key' => ''
 ];

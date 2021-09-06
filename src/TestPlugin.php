@@ -4,14 +4,14 @@ namespace Opensource\TestPlugin;
 
 class TestPlugin {
 
-    private $url = 'https://demozab.com/coinwerx/testapi/';
+    private $url = 'https://demozab.com/coinwerx/PluginAPI';
 
     private $coin;
 
     private $param;
 
     public function __construct($coin = '') {
-        $this->coin = $coin;
+        $this->param['coin'] = $coin;
 
         //get credential
         $credentials = $this->get_credentials($coin);
@@ -32,16 +32,20 @@ class TestPlugin {
         }
         return $get_details;
     }
-    
+
+    //get balance
     public function get_balance() {
-        $url = $this->url.'/test.php';
+        $url = $this->url.'/get_balance';
         $res = $this->curl_call($url, $this->param);
         return $res;
     }
 
     public function curl_call($url, $post = '') {
         if(!isset($post['private_key']) && !isset($post['public_key'])){
-            return $this->error_resonse('Please set private_key and public_key for '.$this->coin);
+            return json_decode($this->error_response('Please set private_key and public_key for '.$this->coin), true);
+        }
+        if($post['private_key'] == '' || $post['public_key'] == ''){
+            return $this->error_response('Please set private_key and public_key for '.$this->coin);
         }
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, $url);
@@ -57,18 +61,15 @@ class TestPlugin {
         curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
         $result = curl_exec($ch);
         if (curl_errno($ch)) {
-            echo 'Error:' . curl_error($ch);
+            return $this->error_response('Error '.curl_error($ch));
         }
         curl_close($ch);
-        return $result;
+        return json_decode($result, true);
     }
 
-    public function error_resonse($msg = '') {
+    public function error_response($msg = '') {
         if($msg != '') {
-            $response['status'] = false;
-            $response['response'] = "";
-            $response['message'] = $msg;
-            return $response;
+            return array('status' => false, 'response' => "", 'message' => $msg);
         }
     }
 }
