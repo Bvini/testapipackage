@@ -2,7 +2,7 @@
 
 return [
 
-    'api_key' => '',
-
-    'api_secret' => ''
+    'public_key' => 'test',
+    
+    'private_key' => 'testprivate'
 ];
