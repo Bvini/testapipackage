@@ -25,7 +25,7 @@ class TestPlugin {
         $get_details = '';
 
         //get details from config folder
-        $credentials = config('app.test_plugin');
+        $credentials = config('test_plugin');
         if(count($credentials) > 0) {
             $get_details['private_key'] = $credentials['private_key'];
             $get_details['public_key'] = $credentials['public_key'];        
