@@ -40,6 +40,49 @@ class TestPlugin {
         return $res;
     }
 
+    //get deposit address
+    public function get_deposit_address() {
+        $url = $this->url.'/get_deposit_address';
+        $res = $this->curl_call($url, $this->param);
+        return $res;
+    }
+
+    //get payment transaction information
+    public function get_tx_info($payment_id) {
+        $this->param['payment_id'] = $payment_id;
+        $url = $this->url.'/get_tx_info';
+        $res = $this->curl_call($url, $this->param);
+        return $res;
+    }
+
+    //get all payment transaction information
+    public function get_tx_list() {
+        $url = $this->url.'/get_tx_list';
+        $res = $this->curl_call($url, $this->param);
+        return $res;
+    }
+
+    //generate new payment transaction
+    public function create_transaction($cmd, $amount, $currency1, $currency2, $item_name, $item_number, $invoice, $success_url, $cancel_url, $buyer_email, $address = '', $buyer_name = '', $ipn_url = '') {
+        //get parameters
+        $this->param['cmd'] = $cmd;
+        $this->param['amount'] = $amount;
+        $this->param['currency1'] = $currency1;
+        $this->param['currency2'] = $currency2;
+        $this->param['item_name'] = $item_name;
+        $this->param['item_number'] = $item_number;
+        $this->param['invoice'] = $invoice;
+        $this->param['success_url'] = $success_url;
+        $this->param['cancel_url'] = $cancel_url;
+        $this->param['buyer_email'] = $buyer_email;
+        $this->param['address'] = $address;
+        $this->param['buyer_name'] = $buyer_name;
+        $this->param['ipn_url'] = $ipn_url;
+        $url = $this->url.'/create_transaction';
+        $res = $this->curl_call($url, $this->param);
+        return $res;
+    }
+
     public function curl_call($url, $post = '') {
         if(!isset($post['private_key']) && !isset($post['public_key'])){
             return json_decode($this->error_response('Please set private_key and public_key for '.$this->coin), true);
