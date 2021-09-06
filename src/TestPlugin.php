@@ -22,7 +22,7 @@ class TestPlugin {
     }
 
     public function get_credentials() {
-        $get_details = '';
+        $get_details = array();
 
         //get details from config folder
         $credentials = config('test_plugin');
@@ -40,18 +40,20 @@ class TestPlugin {
     }
 
     public function curl_call($url, $post = '') {
-        dd($post);
+        if(!isset($post['private_key']) && !isset($post['public_key'])){
+            return $this->error_resonse('Please set private_key and public_key for '.$this->coin);
+        }
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-        if($post != '') {
-            curl_setopt($ch, CURLOPT_POST, 1);
-            curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($params));
-        }
         curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+        if($post != '') {
+            curl_setopt($ch, CURLOPT_POST, 1);
+            curl_setopt($ch, CURLOPT_POSTFIELDS, $post);
+        }
         $headers = array();
-        $headers[] = "Content-Type : application/json";
+        $headers[] = 'Content-Type: multipart/form-data;';
         curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
         $result = curl_exec($ch);
         if (curl_errno($ch)) {
@@ -59,5 +61,14 @@ class TestPlugin {
         }
         curl_close($ch);
         return $result;
+    }
+
+    public function error_resonse($msg = '') {
+        if($msg != '') {
+            $response['status'] = false;
+            $response['response'] = "";
+            $response['message'] = $msg;
+            return $response;
+        }
     }
 }
