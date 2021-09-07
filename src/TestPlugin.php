@@ -83,6 +83,32 @@ class TestPlugin {
         return $res;
     }
 
+    //make new withdrawal
+    public function withdraw($address, $amount) {
+        //get parameters
+        $this->param['address'] = $address;
+        $url = $this->url.'/withdraw';
+        $res = $this->curl_call($url, $this->param);
+        return $res;
+    }
+
+    //get withdrawal history
+    public function get_all_withdraw_history() {
+        //get parameters
+        $url = $this->url.'/get_withdraw_history';
+        $res = $this->curl_call($url, $this->param);
+        return $res;
+    }
+
+    //get single withdrawal history
+    public function get_withdraw_history($withdraw_id) {
+        $this->param['withdraw_id'] = $withdraw_id;
+        //get parameters
+        $url = $this->url.'/get_withdraw_history';
+        $res = $this->curl_call($url, $this->param);
+        return $res;
+    }
+
     public function curl_call($url, $post = '') {
         if(!isset($post['private_key']) && !isset($post['public_key'])){
             return json_decode($this->error_response('Please set private_key and public_key for '.$this->coin), true);

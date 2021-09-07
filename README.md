@@ -45,7 +45,7 @@ return [
  ```
  $btc_wallet = new TestPluginData('BTC');
  ```
- here "BTC" must be in config/test_plugin.php file array.
+ here "BTC" must be needed.
 
 ### Get Balance : 
 you can get balance of your wallet using get_balance call.
@@ -164,5 +164,79 @@ this will return either success response or error response if something went wro
             ]
       ]
       "message" => ""
+]
+```
+### Make New Withdrawal : 
+you can make new withdrawal request using withdraw call.
+```
+$balance = $btc_wallet->withdraw($address, $amount);
+```
+this will return either success response or error response if something went wrong.like below is the success response : 
+```
+[
+      "status": true,
+      "response": "",
+      "message": "Withdraw has been successfully sent. Your request will be confirmed within few minutes to over 10 minutes."
+]
+```
+### Get Withdrawal History : 
+you can get particular withdrawal history using get_withdraw_history call.
+```
+$balance = $btc_wallet->get_withdraw_history($withdraw_id);
+```
+this will return either success response or error response if something went wrong.like below is the success response : 
+```
+[
+      "status": true,
+      "response": [
+              0 => [
+                  "withdraw_id": "your_withdrawal_id",
+                  "txn_id": "XXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+                  "address": "16Fg*******zGasw5",
+                  "amount": "250.00000000",
+                  "fee": "0.00000000",
+                  "total": "250.00000000",
+                  "currency": "BTC",
+                  "status": "Rejected",
+                  "date_time": "21-01-2021 18:16:18"
+              ]
+      ],
+      "message": ""
+]
+```
+### Get All Withdrawal History : 
+you can get particular withdrawal history using get_withdraw_history call.
+```
+$balance = $btc_wallet->get_all_withdraw_history();
+```
+this will return either success response or error response if something went wrong.like below is the success response : 
+```
+[
+      "status": true,
+      "response": [
+              0 => [
+                  "withdraw_id": "your_withdrawal_id",
+                  "txn_id": "XXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+                  "address": "16Fg*******zGasw5",
+                  "amount": "250.00000000",
+                  "fee": "0.00000000",
+                  "total": "250.00000000",
+                  "currency": "BTC",
+                  "status": "Rejected",
+                  "date_time": "21-01-2021 18:16:18"
+              ],
+              1 => [
+                  "withdraw_id": "your_withdrawal_id",
+                  "txn_id": "XXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+                  "address": "16Fg*******zGasw5",
+                  "amount": "250.00000000",
+                  "fee": "0.00000000",
+                  "total": "250.00000000",
+                  "currency": "BTC",
+                  "status": "Rejected",
+                  "date_time": "21-01-2021 18:16:18"
+              ]
+      ],
+      "message": ""
 ]
 ```
